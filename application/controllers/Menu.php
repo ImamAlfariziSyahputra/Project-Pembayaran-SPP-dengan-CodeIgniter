@@ -1,78 +1,74 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Spp extends CI_Controller
+class Menu extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
         user_level();
-        $this->load->model('Model_spp');
+        $this->load->model('Model_menu');
+        $this->load->model('Model_submenu');
     }
-
     public function index()
     {
-        $data['title'] = 'SPP';
+        $data['title'] = 'Menu Management';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['spp'] = $this->Model_spp->getAllSpp();
 
-
+        $data['menu'] = $this->Model_menu->getAllMenu();
+        
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view('templates/topbar');
-        $this->load->view('admin/spp/index');
-        $this->load->view('templates/footer');
+        $this->load->view('menu/index');
+        $this->load->view('templates/footer');        
     }
 
     public function tambah()
     {
-        $data['title'] = 'Form Tambah Data SPP';
+        $data['title'] = 'Form Tambah Data Menu';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['css'] = 'spp.css';
 
-        $this->form_validation->set_rules('tahun', 'Nama', 'required|numeric');
-        $this->form_validation->set_rules('nominal', 'Nominal', 'required|numeric');
+        $this->form_validation->set_rules('menu', 'Nama Menu', 'required');
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar');
             $this->load->view('templates/topbar');
-            $this->load->view('admin/spp/tambah');
+            $this->load->view('menu/tambah');
             $this->load->view('templates/footer');
         } else {
-            $this->Model_spp->tambahDataSpp();
+            $this->Model_menu->tambahDataMenu();
             $this->session->set_flashdata('flash', 'Ditambahkan');
-            redirect('spp');
+            redirect('menu');
         }
     }
 
     public function hapus($id)
     {
-        $this->Model_spp->hapusDataSpp($id);
+        $this->Model_menu->hapusDataMenu($id);
         $this->session->set_flashdata('flash', 'Dihapus');
-        redirect('spp');
+        redirect('menu');
     }
 
-    public function ubah($id)
+    public function edit($id)
     {
-        $data['title'] = 'Form Ubah Data SPP';
+        $data['title'] = 'Form Ubah Data Menu';
+        $data['menu'] = $this->Model_menu->getMenuById($id);
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['css'] = 'spp.css';
-        $data['spp'] = $this->Model_spp->getSppById($id);
 
-        $this->form_validation->set_rules('tahun', 'Tahun', 'required|numeric');
-        $this->form_validation->set_rules('nominal', 'Nominal', 'required|numeric');
+        $this->form_validation->set_rules('menu', 'Nama Menu', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar');
             $this->load->view('templates/topbar');
-            $this->load->view('admin/spp/ubah');
+            $this->load->view('menu/ubah');
             $this->load->view('templates/footer');
         } else {
-            $this->Model_spp->ubahDataSpp();
+            $this->Model_menu->ubahDataMenu();
             $this->session->set_flashdata('flash', 'Diubah');
-            redirect('spp');
+            redirect('menu');
         }
     }
-    
+
 }

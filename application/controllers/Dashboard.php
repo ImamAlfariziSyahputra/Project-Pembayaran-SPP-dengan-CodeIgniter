@@ -4,8 +4,7 @@ class Dashboard extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        // $this->load->model('modelsistem');
-        $this->load->library('form_validation');
+        user_level();
     }
 
     public function index() 

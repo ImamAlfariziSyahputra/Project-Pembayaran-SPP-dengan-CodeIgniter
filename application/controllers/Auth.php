@@ -6,11 +6,20 @@ class Auth extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->library('form_validation');
+    }
+
+    public function goToDefaultPage()
+    {
+        if ($this->session->userdata('role_id') == 1) {
+            redirect('admin');
+        } else if ($this->session->userdata('role_id') == 2) {
+            redirect('user');
+        }
     }
 
     public function index()
     {
+        $this->goToDefaultPage();
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
         if ($this->form_validation->run() == false) {
@@ -63,6 +72,7 @@ class Auth extends CI_Controller
 
     public function register()
     {
+        $this->goToDefaultPage();
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
             'is_unique' => 'This email has already registered!'
@@ -103,5 +113,17 @@ class Auth extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
             You has been logged out! </div>');
         redirect('auth');
+    }
+
+    public function blocked()
+    {
+        $data['title'] = 'Access Blocked';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('auth/blocked', $data);
+        $this->load->view('templates/footer');
     }
 }

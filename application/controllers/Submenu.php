@@ -1,78 +1,81 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Spp extends CI_Controller
+class Submenu extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        user_level();
-        $this->load->model('Model_spp');
+        $this->load->model('Model_submenu');
+        $this->load->model('Model_menu');
     }
-
     public function index()
     {
-        $data['title'] = 'SPP';
+        $data['title'] = 'Submenu Management';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['spp'] = $this->Model_spp->getAllSpp();
-
+        $data['submenu'] = $this->Model_submenu->getAllSubMenu();
+        $data['menu'] = $this->Model_menu->getAllMenu();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view('templates/topbar');
-        $this->load->view('admin/spp/index');
+        $this->load->view('submenu/index');
         $this->load->view('templates/footer');
     }
 
     public function tambah()
     {
-        $data['title'] = 'Form Tambah Data SPP';
+        $data['title'] = 'Form Tambah Data Submenu';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['css'] = 'spp.css';
+        $data['menu'] = $this->Model_menu->getAllMenu();
 
-        $this->form_validation->set_rules('tahun', 'Nama', 'required|numeric');
-        $this->form_validation->set_rules('nominal', 'Nominal', 'required|numeric');
+        $this->form_validation->set_rules('title', 'Title', 'required');
+        $this->form_validation->set_rules('menu_id', 'Menu', 'required');
+        $this->form_validation->set_rules('url', 'Url', 'required');
+        $this->form_validation->set_rules('icon', 'Icon', 'required');
+
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar');
             $this->load->view('templates/topbar');
-            $this->load->view('admin/spp/tambah');
+            $this->load->view('submenu/tambah');
             $this->load->view('templates/footer');
         } else {
-            $this->Model_spp->tambahDataSpp();
+            $this->Model_submenu->tambahDataSubMenu();
             $this->session->set_flashdata('flash', 'Ditambahkan');
-            redirect('spp');
+            redirect('submenu');
         }
     }
 
     public function hapus($id)
     {
-        $this->Model_spp->hapusDataSpp($id);
+        $this->Model_submenu->hapusDataSubmenu($id);
         $this->session->set_flashdata('flash', 'Dihapus');
-        redirect('spp');
+        redirect('submenu');
     }
 
     public function ubah($id)
     {
-        $data['title'] = 'Form Ubah Data SPP';
+        $data['title'] = 'Form Ubah Data Submenu';
+        $data['submenu'] = $this->Model_submenu->getSubMenuById($id);
+        $data['menu'] = $this->Model_menu->getAllMenu();
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['css'] = 'spp.css';
-        $data['spp'] = $this->Model_spp->getSppById($id);
 
-        $this->form_validation->set_rules('tahun', 'Tahun', 'required|numeric');
-        $this->form_validation->set_rules('nominal', 'Nominal', 'required|numeric');
+        $this->form_validation->set_rules('title', 'Title', 'required');
+        $this->form_validation->set_rules('menu_id', 'Menu', 'required');
+        $this->form_validation->set_rules('url', 'Url', 'required');
+        $this->form_validation->set_rules('icon', 'Icon', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar');
             $this->load->view('templates/topbar');
-            $this->load->view('admin/spp/ubah');
+            $this->load->view('submenu/ubah');
             $this->load->view('templates/footer');
         } else {
-            $this->Model_spp->ubahDataSpp();
+            $this->Model_submenu->ubahDataSubmenu();
             $this->session->set_flashdata('flash', 'Diubah');
-            redirect('spp');
+            redirect('submenu');
         }
     }
-    
 }

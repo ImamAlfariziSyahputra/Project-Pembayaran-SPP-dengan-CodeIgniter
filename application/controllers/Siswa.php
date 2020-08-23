@@ -6,6 +6,7 @@ class Siswa extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        user_level();
         $this->load->model('Model_siswa');
         $this->load->model('Model_kelas');
         $this->load->model('Model_spp');
