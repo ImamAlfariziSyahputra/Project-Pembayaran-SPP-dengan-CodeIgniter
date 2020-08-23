@@ -6,6 +6,7 @@ class Submenu extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        user_level();
         $this->load->model('Model_submenu');
         $this->load->model('Model_menu');
     }

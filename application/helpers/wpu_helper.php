@@ -8,7 +8,7 @@ function user_level()
     } else {
         $role_id = $ci->session->userdata('role_id');
         $menu = $ci->uri->segment(1);
-        $queryMenu = $ci->db->get_where('user_sub_menu', ['level' => $menu])->row_array();
+        $queryMenu = $ci->db->get_where('user_sub_menu', ['controller' => $menu])->row_array();
 
         // var_dump($role_id);
         // var_dump($queryMenu['menu_id']);
