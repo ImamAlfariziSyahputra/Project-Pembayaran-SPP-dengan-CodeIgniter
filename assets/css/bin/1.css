@@ -1,0 +1,42 @@
+/* .navbar {
+	background-image: linear-gradient(to right, #a517ba, #5f1782);
+}
+.konten
+{
+    background-image: linear-gradient(to right, #a517ba, #5f1782);
+} */
+.banner
+{
+    position: relative;
+    background: #42455a;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+.navbar
+{
+    background: #42455a;
+    padding: 10px 0;
+}
+.navbar-brand
+{
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1.7em;
+}
+.nav-item
+{
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.navbar-light .navbar-nav .nav-item .nav-link:hover,
+.navbar-light .navbar-nav .nav-item.active .nav-link
+{
+    background: #262626;
+    color: white;
+}
+.navbar-light .navbar-nav .nav-item .nav-link
+{
+    color: white;
+    padding: 5px 15px;
+}

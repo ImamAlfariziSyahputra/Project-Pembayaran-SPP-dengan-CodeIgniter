@@ -16,7 +16,6 @@ class Spp extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['spp'] = $this->Model_spp->getAllSpp();
 
-
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view('templates/topbar');

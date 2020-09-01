@@ -3,17 +3,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth extends CI_Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function goToDefaultPage()
     {
         if ($this->session->userdata('role_id') == 1) {
             redirect('admin');
         } else if ($this->session->userdata('role_id') == 2) {
             redirect('user');
+        } else if ($this->session->userdata('role_id') == 3) {
+            redirect('pembayaran');
         }
     }
 
@@ -25,7 +22,7 @@ class Auth extends CI_Controller
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Login';
             $this->load->view('templates/auth_header', $data);
-            $this->load->view('auth/login');
+            $this->load->view('auth/login2');
             $this->load->view('templates/auth_footer');
         } else {
             $this->_login();
@@ -50,22 +47,24 @@ class Auth extends CI_Controller
                     $this->session->set_userdata($data);
                     if ($user['role_id'] == 1) {
                         redirect('admin');
-                    } else {
+                    } else if($user['role_id'] == 2) {
                         redirect('user');
+                    } else {
+                        redirect('pembayaran');
                     }
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                    Wrong Password!</div>');
+                    Password Salah!</div>');
                     redirect('auth');
                 }
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-                This email is not been activated!</div>');
+                Email Ini belum diaktivasi!</div>');
                 redirect('auth');
             }
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">
-            Email is not registered!</div>');
+            Email belum di registrasi!</div>');
             redirect('auth');
         }
     }
@@ -118,12 +117,11 @@ class Auth extends CI_Controller
     public function blocked()
     {
         $data['title'] = 'Access Blocked';
+        $data['css'] = 'blocked.css';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
+        $this->load->view('templates/headeruser', $data);
         $this->load->view('auth/blocked', $data);
-        $this->load->view('templates/footer');
+        $this->load->view('templates/footeruser');
     }
 }

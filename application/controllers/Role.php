@@ -26,7 +26,6 @@ class Role extends CI_Controller
     {
         $data['title'] = 'Role Access';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-
         $data['role'] = $this->db->get_where('user_role', ['id' => $role_id])->row_array();
 
         $this->db->where('id !=', 1);
@@ -56,8 +55,7 @@ class Role extends CI_Controller
             $this->db->delete('user_access_menu', $data);
         }
 
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            Access Changed! </div>');
+        $this->session->set_flashdata('flash', 'Akses Diubah');
     }
 
     public function tambah()

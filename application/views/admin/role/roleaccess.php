@@ -6,8 +6,17 @@
 
                     <div class="row">
                         <div class="col-md">
-
-                            <?= $this->session->flashdata('message'); ?>
+                            <!-- flash -->
+                            <div class="col-md-5">
+                                <?php if ($this->session->flashdata()) : ?>
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        Data Kelas <strong>berhasil</strong> <?= $this->session->flashdata('flash'); ?>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
 
                             <h5>Role : <?= $role['role']; ?></h5>
 
@@ -102,14 +111,14 @@
                         const roleId = $(this).data('role');
 
                         $.ajax({
-                            url: "<?= base_url('admin/changeaccess'); ?>",
+                            url: "<?= base_url('role/changeaccess'); ?>",
                             type: 'post',
                             data: {
                                 menuId: menuId,
                                 roleId: roleId
                             },
                             success: function() {
-                                document.location.href = "<?= base_url('admin/roleaccess/') ?>" + roleId;
+                                document.location.href = "<?= base_url('role/roleaccess/') ?>" + roleId;
                             }
                         });
                     });

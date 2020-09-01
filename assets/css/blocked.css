@@ -1,0 +1,51 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+body
+{
+    font-family: sans-serif;
+}
+.navbar-light .navbar-brand
+{
+    color:  #a517ba;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.7em;
+}
+.nav-item
+{
+    font-weight: 300;
+    text-transform: uppercase;
+}
+.navbar-light .navbar-nav .nav-item .nav-link:hover,
+.navbar-light .navbar-nav .nav-item.active .nav-link
+{
+    background-image: linear-gradient(to right, #a517ba, #5f1782);
+    border-radius: 20px;
+    color: white;
+
+}
+.navbar-light .navbar-nav .nav-item .nav-link
+{
+    color: #262626;
+    padding: 5px 15px;
+}
+.fa-bars
+{
+    color: white;
+    font-size: 30px !important;
+}
+.navbar-toggler
+{
+    outline: none !important;
+}
+
+/* -----------------banner-------------- */
+
+#banner
+{
+    color: white;
+    padding-top: 8%;
+}

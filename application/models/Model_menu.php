@@ -2,8 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Model_menu extends CI_Model
-{   
-
+{
     public function getAllMenu()
     {
         return $this->db->get('user_menu')->result_array();

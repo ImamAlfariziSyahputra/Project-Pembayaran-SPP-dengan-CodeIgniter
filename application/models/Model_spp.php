@@ -1,7 +1,8 @@
-<?php 
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Model_spp extends CI_model {
-
+class Model_spp extends CI_model 
+{
     public function getAllSpp()
     {
         return $this->db->get('spp')->result_array();

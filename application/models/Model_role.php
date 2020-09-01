@@ -1,8 +1,8 @@
-<?php 
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Model_role extends CI_model {
-
-
+class Model_role extends CI_model 
+{
     public function getAllRole()
     {
         return $this->db->get('user_role')->result_array();

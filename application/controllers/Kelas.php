@@ -17,7 +17,6 @@ class Kelas extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['kelas'] = $this->Model_kelas->getAllKelas();
 
-
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view('templates/topbar');

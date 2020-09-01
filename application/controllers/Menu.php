@@ -8,15 +8,13 @@ class Menu extends CI_Controller
         parent::__construct();
         user_level();
         $this->load->model('Model_menu');
-        $this->load->model('Model_submenu');
     }
     public function index()
     {
         $data['title'] = 'Menu Management';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-
         $data['menu'] = $this->Model_menu->getAllMenu();
-        
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view('templates/topbar');

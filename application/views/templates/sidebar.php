@@ -16,6 +16,7 @@
     <?php
 
     $role_id = $this->session->userdata('role_id');
+    // Siapin Menu sesuai Role Boleh apa nggak diakses
     $queryMenu = "SELECT `user_menu`.`id`, `menu`
                         FROM `user_menu` JOIN `user_access_menu`
                         ON `user_menu`.`id` = `user_access_menu`.`menu_id`

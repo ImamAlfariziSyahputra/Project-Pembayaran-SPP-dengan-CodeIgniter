@@ -17,6 +17,22 @@
 
     <!-- Custom styles for this template-->
     <link href="<?= base_url('assets/'); ?>css/sb-admin-2.min.css" rel="stylesheet">
+    <style>
+        .kanan {
+            height: 100vh;
+        }
+
+        .form {
+            margin-top: 25%;
+            margin-left: 20%;
+        }
+
+        img {
+            width: 50%;
+            margin-top: 10%;
+            margin-left: 20%;
+        }
+    </style>
 
 </head>
 

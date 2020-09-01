@@ -1,11 +1,18 @@
-<?php 
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Model_siswa extends CI_model {
-
-
+class Model_siswa extends CI_model 
+{
     public function getAllSiswa()
     {
-        return $this->db->get('siswa')->result_array();
+        $query = "SELECT siswa.*, kelas.nama_kelas, spp.nominal
+                    FROM siswa 
+                    LEFT JOIN kelas ON siswa.id_kelas = kelas.id_kelas
+                    LEFT JOIN spp ON siswa.id_spp = spp.id_spp
+                ";
+        return $this->db->query($query)->result_array();
+
+        // return $this->db->get('siswa')->result_array();
     }
 
     public function getSiswaById($id)
